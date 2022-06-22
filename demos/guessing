@@ -1,0 +1,48 @@
+$print 0@io
+$input 2@io
+$random 3@io
+
+$rand 0@ram
+$invrand 1@ram
+$guess 2@ram
+
+:start
+copy $random $rand
+band $rand 0x3ff
+copy boolout $rand
+bxor boolout -1
+incr boolout
+copy incrout $invrand
+
+copy "G","u","e" $print
+copy "s","s",":" $print
+copy 10 $print
+
+
+:get
+copy $input $guess
+ifne :wrong $rand $guess
+
+:correct
+copy "C","o","r" $print
+copy "r","e","c" $print
+copy "t","!",32 $print
+goto :start
+
+
+:wrong
+add $guess $invrand
+band 0x8000000 addout
+ifne :higher boolout 0
+
+
+:lower
+copy "L","o","w" $print
+copy "e","r",10 $print
+goto :get
+
+:higher
+copy "H","i","g" $print
+copy "h","e","r" $print
+copy 10 $print
+goto :get

@@ -1,0 +1,66 @@
+$print 0@io
+$7seg 1@io
+$input 2@io
+
+:ask
+copy "1",":",32 $print
+copy "A","d","d" $print
+copy 32,32,"2" $print
+copy ":",32,"M" $print
+copy "u","l","t" $print
+copy 10,"3",":" $print
+copy 32,"M","o" $print
+copy "d",10 $print
+
+copy $input 0@ram
+ifeq :add 0@ram 1
+ifeq :mult 0@ram 2
+ifeq :mod 0@ram 3
+goto :unknown
+
+:mult
+copy "M","u","l" $print
+copy "t" $print
+:multloop
+copy $input 0@ram
+copy 0@ram $7seg
+copy $input 1@ram
+copy 1@ram $7seg
+mul 0@ram 1@ram
+copy mulout $7seg
+goto :multloop
+
+:add
+copy "A","d","d" $print
+:addloop
+copy $input 0@ram
+copy 0@ram $7seg
+copy $input 1@ram
+copy 1@ram $7seg
+add 0@ram 1@ram
+copy addout $7seg
+goto :addloop
+
+:mod
+copy "M","o","d" $print
+:modloop
+copy $input 0@ram
+copy 0@ram $7seg
+copy $input 1@ram
+copy 1@ram $7seg
+bxor 1@ram -1
+incr boolout
+copy incrout 1@ram
+
+:modtry
+copy 0@ram 2@ram
+add 0@ram 1@ram
+copy addout 0@ram
+band addout 0x8000000
+ifeq :modtry boolout 0
+copy 2@ram $7seg
+goto :modloop
+
+:unknown
+copy "?",10 $print
+goto :ask

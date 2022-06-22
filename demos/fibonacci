@@ -1,0 +1,10 @@
+$7seg 1@io
+
+copy 1 1@ram
+
+:loop
+add 0@ram 1@ram
+copy 1@ram 0@ram
+copy addout 1@ram
+copy addout $7seg
+goto :loop

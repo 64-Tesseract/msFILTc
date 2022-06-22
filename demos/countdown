@@ -1,0 +1,17 @@
+$out 1@io
+$print 0@io
+
+incr 11
+
+:loop
+copy decrout $out
+ifeq :lesgo decrout 0
+incr decrout
+goto :loop
+
+:lesgo
+copy "L","E","S" $print
+copy "G","O","O" $print
+:O
+copy "O","O","O" $print
+goto :O
