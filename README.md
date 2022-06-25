@@ -72,7 +72,7 @@ IO modules are easy to use in code, but difficult to design hardware for. The IO
 ```
 copy 9@io 0@io
 ```
-To set up a port along the IO bus, copy an existing port (or one of the examples from the left corner of the save), and paste it in line with the bus. Do not paste it _over_ the bus, but rather in an empty spot in line with it - this is because the bus needs to have empty gaps in the `FILT` rows, and pasting empty space over existing pixels does not remove them.
+To set up a port along the IO bus, copy an existing port (or one of the examples from the left of the save), and paste it in line with the bus. Do not paste it _over_ the bus, but rather in an empty spot in line with it - this is because the bus needs to have empty gaps in the `FILT` rows, and pasting empty space over existing pixels does not remove them. Then, set the `CTYPE` of the 2 `FILTS` in the port (highlighted in the example on the left of the save) to `0x20000000` plus the number you'd like to use for the IO module.
 
 It is important to note that if you are expanding the length of the bus beyond what's in the save, you should also increase the `LIFE` of the 2 `LDTC`s (to the right of the "IO" text). If the `LIFE` is below the length of the bus, they may not be able to read from modules out of their reach, but if the `LIFE` is over the length of the bus, it may pick up `BRAY`s from something external besides IO modules.
 
