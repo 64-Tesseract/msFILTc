@@ -11,6 +11,7 @@ local codes = {  -- Instruction codes
     goto=0x22000001,  -- Goto VAL1
     ifne=0x24000002,  -- Goto VAL1 if VAL2 ~= VAL3
     ifeq=0x24000003,  -- Goto VAL1 if VAL2 == VAL3
+    void=0x22000004,  -- Waits until function finished (e.g. mul) but does nothing with gotten value
     
     copy=0x23000005,  -- Copy VAL1 into VAL2
     
@@ -193,9 +194,9 @@ function append_romConsts (filts, romConsts)
     local f = #filts
     local addresses = {}
     local e = 0
-    for name, pos in pairs(romConsts) do
-        table.insert(filts, bit.bor(validate_num(pos, false), 0x400))
-        addresses[name] = e + f
+    for name, val in pairs(romConsts) do
+        table.insert(filts, val)
+        addresses[name] = bit.bor(validate_num(e + f, false), addrs.rom)
         e = e + 1
     end
     return filts, addresses
