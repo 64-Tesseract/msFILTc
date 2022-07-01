@@ -25,7 +25,7 @@ local codes = {  -- Instruction codes
     incr=0x2200000d,    -- VAL1++/--                (to `incrout` and `decrout`) 
     
     add=0x2300000e,     -- VAL1 + VAL2              (to `addout`)
-    mul=0x2300000f,     -- VAL2 * (VAL1 / 2 ^ P)    (to `mulout`)
+    mul=0x2300000f,     -- VAL2 * (VAL1/2^(P/2))    (to `mulout`)
     mulp=0x22000010     -- Sets P for `mul`, allows for lossy fixed-point fractional multiplication
                         --   where the point is after bit P: If P = 8, 1100101 = 1100.101
                         -- Rightshifts an input rather than the output, so low-value detail is clipped
